@@ -97,6 +97,7 @@ const msg = document.getElementById("qr-msg");
 const userMedia = {
     audio: false,
     video: {
+        facingMode: "environment",
         width: 640,
         height: 480,
     },
