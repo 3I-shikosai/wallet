@@ -1,0 +1,143 @@
+* {
+    user-select: none;
+}
+body {
+    touch-action: pan-x pan-y;
+    font-size: 50px;
+    font-family: monospace;
+    padding: 0px;
+    margin: 0px;
+    user-select: none;
+}
+h1 {
+    background-color: #ffffe8;
+    font-size: 1.5rem;
+    margin: 0px;
+    padding: 8px;
+}
+dt {
+    margin-bottom: 2rem;
+}
+li {
+    margin-left: 3rem;
+}
+
+#qr-canvas {
+    width: 100%;
+    height: auto;
+    background-color: silver;
+}
+
+#control-wrapper {
+    display: none;
+    padding: 10% 5%;
+}
+#user-info {
+    margin: 2rem 10%;
+}
+#control-button-container {
+    text-align: center;
+    margin-top: 5rem;
+}
+.control-button {
+    margin: 3rem auto;
+    width: 70%;
+    height: 10rem;
+    font-size: 4rem;
+    border-radius: 1rem;
+}
+#risefall-button {
+    background-color: #83e68d;
+    color: #212121;
+}
+#reset-button {
+    background-color: #c94f4f;
+    color: #e0e0e0;
+}
+#menubar {
+    text-align: center;
+    background-color: #ff7a7a;
+    border-radius: 10rem;
+    color: white;
+    padding: 2rem;
+    margin: 0 2rem;
+    position: fixed;
+    z-index: 100;
+    bottom: 3rem;
+    left: 0;
+    right: 0;
+}
+.menu-box {
+    text-align: center;
+}
+.menu-icon {
+    font-size: 7rem;
+}
+.menu-label {
+    margin: 0px;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+#menu-scan {
+    display: none;
+}
+
+#risefall-popup {
+    display: none;
+    --height: 50rem;
+    --width: 80vw;
+    border-radius: 20px;
+    box-shadow: 5px 5px 4px #32543e;
+    position: fixed;
+    top: calc(50vh - calc(var(--height) / 2));
+    left: calc(50vw - calc(var(--width) / 2));
+    z-index: 101;
+    height: var(--height);
+    width: var(--width);
+    background-color: #e6fcee;
+    text-align: center;
+}
+#risefall-input {
+    margin-top: 18%;
+    font-size: 4rem;
+    text-align: right;
+    padding: 0.5em;
+    width: 8em;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #8161ff;
+}
+#resefall-input:active {
+    border: none;
+}
+#risefall-control {
+    display: flex;
+    margin: 5rem 12% 0 12%;
+}
+.risefall-buttons {
+    font-size: 8rem;
+    margin: auto;
+    padding: 6px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 4px black;
+}
+#risefall-dec {
+    background-color: #e0d9ff;
+}
+#risefall-inc {
+    background-color: #ffd9df;
+}
+#risefall-ok {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 7rem;
+    padding: 0.5rem;
+    margin-top: 5rem;
+    text-align: center;
+    background-color: #97d1ac;
+    border-radius: 10px;
+    box-shadow: 5px 5px 4px black;
+}
