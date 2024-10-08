@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>チップ管理</title>
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+        />
+
+        <link rel="stylesheet" href="./main.css" type="text/css" />
+    </head>
+    <script src="../node_modules/jsqr/dist/jsQR.js" defer></script>
+    <script src="./main.js" defer></script>
+    <body>
+        <div id="certification-frame">
+            <form id="password-form">
+            <div id="password-frame">
+                <label for="password">PASSWORD:&nbsp;</label>
+                <input id="password" name="password" type="password" />
+            </div>
+            <input id="password-submit" type="submit" value="OK" />
+            </form>
+        </div>
+
+
+        <div id="admin-view">
+
+        <h1>3Iオンラインチップ管理ページ</h1>
+
+        <div id="qr-wrapper">
+            <div id="qr-msg">カメラへのアクセスを許可してください</div>
+            <canvas id="qr-canvas"></canvas>
+        </div>
+
+        <div id="control-wrapper">
+            <dl id="user-info">
+                <dt>User Informaition</dt>
+                <li>
+                    <div>ID:</div>
+                    <span id="user-id" class="user-info-val"></span>
+                </li>
+                <li>
+                    <div>Balance:</div>
+                    <span id="balance" class="user-info-val"></span>
+                </li>
+            </dl>
+
+            <div id="control-button-container">
+                <input
+                    class="control-button"
+                    type="button"
+                    value="チップ増減"
+                    id="risefall-button"
+                />
+
+                <input
+                    class="control-button"
+                    type="button"
+                    value="RESET"
+                    id="reset-button"
+                />
+            </div>
+        </div>
+
+        <!-- Rise & Fall's Pop-Up -->
+        <div id="risefall-popup">
+            <input
+                id="risefall-input"
+                type="text"
+                inputmode="numeric"
+                pattern="\d*"
+                value="0"
+                autofocus
+                placeholder="ペリカ"
+            />
+            <div id="risefall-control">
+                <div
+                    id="risefall-inc"
+                    class="material-symbols-outlined risefall-buttons"
+                >
+                    add
+                </div>
+                <div
+                    id="risefall-dec"
+                    class="material-symbols-outlined risefall-buttons"
+                >
+                    remove
+                </div>
+            </div>
+            <div id="risefall-ok">OK</div>
+        </div>
+
+        <div id="menubar">
+            <div id="menu-scan" class="menu-box">
+                <span class="material-symbols-outlined menu-icon">
+                    qr_code_scanner
+                </span>
+                <p class="menu-label">Scan</p>
+            </div>
+            <div id="menu-cancel" class="menu-box">
+                <span class="material-symbols-outlined menu-icon">cancel</span>
+                <p class="menu-label">Cancel</p>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

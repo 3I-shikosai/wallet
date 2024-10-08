@@ -1,7 +1,59 @@
 // for convenience
 const id_get = (id) => document.getElementById(id);
 
+// ---------- Constant variables ----------
+//
+// Login Password
+const LOGIN_PASSWORD = "utMMzzS=Y";
+//
+// API URL
 const API_URL = "https://shikosai.mtaisei.com/api";
+//
+// Range of Balance
+const MAX_BALANCE = 1000;
+const MIN_BALANCE = 0;
+//
+// Initial balance
+const INITIAL_BALANCE = 100;
+// Rise & Fall steps
+const RISEFALL_STEP = 10;
+//
+// ----------------------------------------
+//
+
+// ----------- Certification -------------
+//
+let enteredPassword = "";
+//
+const CHAR_LIST =
+    "AVWXYZ#=BCDEFGHIJ^KLMNOa$bcdefghijkPQRSTU+!lmnopqrstuvwxyz".split("");
+const encode = (src) => {
+    for (let i = 0; i < src.charCodeAt(0) % 10; i++) {
+        src = src + CHAR_LIST[(src.charCodeAt(0) + i * 5) % CHAR_LIST.length];
+    }
+    let ascii = src.split("").map((ch) => ch.charCodeAt(0));
+    ascii = ascii.map((code) => {
+        const idx = ((-1 * code) ** 3 + 32) ** 2 % CHAR_LIST.length;
+        return CHAR_LIST[idx];
+    });
+    return ascii.join("");
+};
+
+const genPassword = (pass) => {
+    console.log(encode(pass));
+};
+
+id_get("password-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    enteredPassword = id_get("password").value;
+    if (encode(enteredPassword) == LOGIN_PASSWORD) {
+        id_get("certification-frame").style.display = "none";
+        id_get("admin-view").style.display = "block";
+    } else {
+        window.alert("password incorrect!");
+    }
+    return false;
+});
 
 class UserData {
     constructor(id) {
@@ -13,6 +65,7 @@ class UserData {
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
+                this.number = json.number;
                 id_get("balance").innerHTML = String(json.balance);
                 this.balance = json.balance;
             });
@@ -29,13 +82,30 @@ class UserData {
     }
 
     inc(diff) {
-        diff = diff.replace("/[^1-9]/g", "");
-
         fetch(API_URL + "/inc", {
             method: "PUT",
             body: JSON.stringify({
+                password: enteredPassword,
                 user_id: this.userId,
+                number: this.number,
                 diff: diff,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+    }
+
+    reset() {
+        fetch(API_URL + "/reset", {
+            method: "PUT",
+            body: JSON.stringify({
+                password: enteredPassword,
+                user_id: this.userId,
+                number: this.number,
+                diff: 0,
             }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
@@ -163,14 +233,14 @@ id_get("risefall-input").addEventListener("input", (input) => {
 // Increase Input Value
 id_get("risefall-inc").addEventListener("click", () => {
     let value = Number(id_get("risefall-input").value);
-    value += 10;
+    value += RISEFALL_STEP;
     id_get("risefall-input").value = String(value);
 });
 
 // Decrease Input Value
 id_get("risefall-dec").addEventListener("click", () => {
     let value = Number(id_get("risefall-input").value);
-    value -= 10;
+    value -= RISEFALL_STEP;
     id_get("risefall-input").value = String(value);
 });
 
@@ -178,15 +248,41 @@ id_get("risefall-button").addEventListener("click", () => {
     id_get("risefall-popup").style.display = "block";
 });
 
-// submit rise & fall request
+// ----- submit rise & fall request -----
+//
 id_get("risefall-ok").addEventListener("click", () => {
+    // get input value
     diff = id_get("risefall-input").value;
+    diff = diff.replace("/[^1-9]/g", "");
+    diff = Number(diff);
 
-    global_user.inc(diff);
+    // check input value
+    const balance = global_user.balance + diff;
+    if (MIN_BALANCE <= balance && balance <= MAX_BALANCE) {
+        global_user.inc(diff);
 
-    id_get("risefall-popup").style.display = "none";
+        global_user.refresh();
 
-    global_user.refresh();
+        id_get("risefall-popup").style.display = "none";
 
-    id_get("risefall-input").value = "0";
+        setTimeout(() => {
+            global_user.refresh();
+        }, 100);
+
+        id_get("risefall-input").value = "0";
+    } else {
+        window.alert("【不正な値】上限・下限を超えています");
+        id_get("risefall-input").value = "0";
+    }
+});
+
+id_get("reset-button").addEventListener("click", () => {
+    let yes = window.confirm("本当にリセットしますか？");
+    if (yes) {
+        global_user.reset();
+        global_user.refresh();
+        setTimeout(() => {
+            global_user.refresh();
+        }, 100);
+    }
 });

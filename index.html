@@ -2,7 +2,7 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8" />
-        <title>チップ管理</title>
+        <title>PoyPoy | 3I</title>
 
         <link
             rel="stylesheet"
@@ -11,58 +11,51 @@
 
         <link rel="stylesheet" href="./main.css" type="text/css" />
     </head>
+
+    <!-- ------------ Load Scripts --------------->
+    <script src="./qrcode.min.js"></script>
     <script src="./node_modules/jsqr/dist/jsQR.js" defer></script>
-    <script src="./main.js" defer></script>
+    <script src="./common.js" defer></script>
+    <script src="./session.js" defer></script>
+
     <body>
-        <h1>3Iオンラインチップ管理ページ</h1>
+        <!-- ------------ Main UI --------------------->
+        <div id="main">
+            <!-- ------------ QR code & User ID ----------------->
+            <div id="qrcode-frame">
+                <div id="qrcode"></div>
+                <div id="logo-and-id">
+                    <div id="logo-frame">
+                        <span id="logo" class="material-symbols-outlined"> psychology_alt </span>
+                        <span id="logo-text">3I-Pay</span>
+                    </div>
+                    <div id="user-id"></div>
+                </div>
+            </div>
 
-        <div id="qr-wrapper">
-            <div id="qr-msg">カメラへのアクセスを許可してください</div>
-            <canvas id="qr-canvas"></canvas>
-        </div>
+            <!-- ------------ Balance ------------------>
+            <div id="balance-frame">
+                <div id="balance-header">
+                    <span id="balance-icon" class="material-symbols-outlined">
+                        savings
+                    </span>
+                    <div id="blanace-title">
+                        <div id="blanace-title-en">Balance</div>
+                        <div id="balance-title-jp">残高</div>
+                    </div>
+                </div>
 
-        <div id="control-wrapper">
-            <dl id="user-info">
-                <dt>User Informaition</dt>
-                <li>ID: <span id="user-id"></span></li>
-                <li>Balance: <span id="balance"></span></li>
-            </dl>
-
-            <div id="control-button-container">
-                <input
-                    class="control-button"
-                    type="button"
-                    value="チップ増減"
-                    id="risefall-button"
-                />
-
-                <input
-                    class="control-button"
-                    type="button"
-                    value="RESET"
-                    id="reset-button"
-                />
+                <div id="balance"></div>
             </div>
         </div>
 
-        <!-- Rise & Fall's Pop-Up -->
-        <div id="risefall-popup">
-            <input id="risefall-input" type="text" inputmode="numeric" pattern="\d*" value="0" autofocus placeholder="ペリカ">
-            <div id="risefall-control">
-                <div id="risefall-inc" class="material-symbols-outlined risefall-buttons">add</div>
-                <div id="risefall-dec" class="material-symbols-outlined risefall-buttons">remove</div>
-            </div>
-            <div id="risefall-ok">OK</div>
-        </div>
-
+        <!-- ------------ Bottom Menu Bar ------------->
         <div id="menubar">
-            <div id="menu-scan" class="menu-box">
-                <span class="material-symbols-outlined menu-icon"> qr_code_scanner </span>
-                <p class="menu-label">Scan</p>
-            </div>
-            <div id="menu-cancel" class="menu-box">
-                <span class="material-symbols-outlined menu-icon">cancel</span>
-                <p class="menu-label">Cancel</p>
+            <div id="menu-refresh" class="menu-box">
+                <span class="material-symbols-outlined menu-icon"
+                    >autorenew</span
+                >
+                <p class="menu-label">Refresh</p>
             </div>
         </div>
     </body>
