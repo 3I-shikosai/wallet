@@ -1,30 +1,11 @@
-// for convenience
-const id_get = (id) => document.getElementById(id);
-
-// ---------- Constant variables ----------
-//
-// Login Password
+// ------------------------- Constatnts -----------------------------
 const LOGIN_PASSWORD = "utMMzzS=Y";
-//
-// API URL
-const API_URL = "https://shikosai.mtaisei.com/api";
-//
-// Range of Balance
 const MAX_BALANCE = 1000;
 const MIN_BALANCE = 0;
-//
-// Initial balance
 const INITIAL_BALANCE = 100;
-// Rise & Fall steps
 const RISEFALL_STEP = 10;
-//
-// ----------------------------------------
-//
 
-// ----------- Certification -------------
-//
-let enteredPassword = "";
-//
+// ------------------------- Password Encoder -----------------------
 const CHAR_LIST =
     "AVWXYZ#=BCDEFGHIJ^KLMNOa$bcdefghijkPQRSTU+!lmnopqrstuvwxyz".split("");
 const encode = (src) => {
@@ -43,10 +24,12 @@ const genPassword = (pass) => {
     console.log(encode(pass));
 };
 
+// ------------------------ Password Certification -------------------
+let entered_raw_password = "";
 id_get("password-form").addEventListener("submit", (e) => {
     e.preventDefault();
-    enteredPassword = id_get("password").value;
-    if (encode(enteredPassword) == LOGIN_PASSWORD) {
+    entered_raw_password = id_get("password").value;
+    if (encode(entered_raw_password) == LOGIN_PASSWORD) {
         id_get("certification-frame").style.display = "none";
         id_get("admin-view").style.display = "block";
     } else {
@@ -55,29 +38,37 @@ id_get("password-form").addEventListener("submit", (e) => {
     return false;
 });
 
+
+// ----------------------- User Class -----------------------
 class UserData {
     constructor(id) {
-        this.userId = id;
-        id_get("user-id").innerHTML = String(this.userId);
+        this.__user_id = id;
+        id_get("user-id").innerHTML = String(this.__user_id);
 
-        // get balance from API
         fetch(API_URL + `/balance/${id}`)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json);
-                this.number = json.number;
-                id_get("balance").innerHTML = String(json.balance);
-                this.balance = json.balance;
+                this.__number = json.number;
+                this.__balance = json.balance;
+            })
+            .then(() => {
+                id_get("balance").innerHTML = String(this.__balance);
             });
     }
 
+    balance() {
+        return this.__balance;
+    }
+
     refresh() {
-        fetch(API_URL + `/balance/${this.userId}`)
+        fetch(API_URL + `/balance/${this.__user_id}`)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
-                id_get("balance").innerHTML = String(json.balance);
-                this.balance = json.balance;
+                this.__balance = json.balance;
+            })
+            .then(() => {
+                id_get("balance").innerHTML = String(this.__balance);
             });
     }
 
@@ -85,9 +76,9 @@ class UserData {
         fetch(API_URL + "/inc", {
             method: "PUT",
             body: JSON.stringify({
-                password: enteredPassword,
-                user_id: this.userId,
-                number: this.number,
+                password: entered_raw_password,
+                user_id: this.__user_id,
+                number: this.__number,
                 diff: diff,
             }),
             headers: {
@@ -95,16 +86,21 @@ class UserData {
             },
         })
             .then((response) => response.json())
-            .then((json) => console.log(json));
+            .then((json) => {
+                this.__balance = json.balance;
+            })
+            .then(() => {
+                this.refresh();
+            });
     }
 
     reset() {
         fetch(API_URL + "/reset", {
             method: "PUT",
             body: JSON.stringify({
-                password: enteredPassword,
-                user_id: this.userId,
-                number: this.number,
+                password: entered_raw_password,
+                user_id: this.__user_id,
+                number: this.__number,
                 diff: 0,
             }),
             headers: {
@@ -129,11 +125,12 @@ window.onload = () => {
     id_get("risefall-input").value = "0";
 };
 
-const clojure_modeSwitch = () => {
-    let isScanMode = true;
+// --------------------- Scan & Control Mode Switch ---------------------
+const clojure_mode_switch = () => {
+    let is_scan_mode = true;
 
     return () => {
-        if (isScanMode) {
+        if (is_scan_mode) {
             // Switch into Control panel
             document.getElementById("qr-wrapper").style.display = "none";
             document.getElementById("control-wrapper").style.display = "block";
@@ -151,13 +148,13 @@ const clojure_modeSwitch = () => {
             document.getElementById("menu-scan").style.display = "none";
             startTick();
         }
-        isScanMode = !isScanMode;
-        return isScanMode;
+        is_scan_mode = !is_scan_mode;
+        return is_scan_mode;
     };
 };
-const modeSwitch = clojure_modeSwitch();
+const mode_switch = clojure_mode_switch();
 
-// HTML Objects
+// --------------------- QR Code Scanning ---------------------------
 const video = document.createElement("video");
 const canvas = document.getElementById("qr-canvas");
 const ctx = canvas.getContext("2d");
@@ -193,8 +190,9 @@ const startTick = () => {
             drawRect(code.location);
             console.log(code.data);
 
-            initUser(Number(code.data));
-            modeSwitch();
+            const user_id = code.data.split("=").shift();
+            initUser(Number(user_id));
+            mode_switch();
 
             return;
         } else {
@@ -222,8 +220,8 @@ const drawLine = (begin, end) => {
 
 // Event Listeners
 
-id_get("menu-cancel").addEventListener("click", modeSwitch);
-id_get("menu-scan").addEventListener("click", modeSwitch);
+id_get("menu-cancel").addEventListener("click", mode_switch);
+id_get("menu-scan").addEventListener("click", mode_switch);
 
 // Reject Non-integer input
 id_get("risefall-input").addEventListener("input", (input) => {
@@ -257,11 +255,9 @@ id_get("risefall-ok").addEventListener("click", () => {
     diff = Number(diff);
 
     // check input value
-    const balance = global_user.balance + diff;
+    const balance = global_user.balance() + diff;
     if (MIN_BALANCE <= balance && balance <= MAX_BALANCE) {
         global_user.inc(diff);
-
-        global_user.refresh();
 
         id_get("risefall-popup").style.display = "none";
 
@@ -282,6 +278,7 @@ id_get("reset-button").addEventListener("click", () => {
         global_user.reset();
         global_user.refresh();
         setTimeout(() => {
+            global_user.reset();
             global_user.refresh();
         }, 100);
     }

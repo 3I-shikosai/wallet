@@ -1,32 +1,29 @@
 * {
     user-select: none;
 }
-
-html {
-    font-size: 20px;
-    user-select: none;
-}
-
 body {
     touch-action: pan-x pan-y;
+    font-size: 50px;
     font-family: monospace;
     padding: 0px;
     margin: 0px;
-    text-align: center;
+    user-select: none;
 }
 
-/* -------------- Main View ----------- */
+#admin-view {
+    display: none;
+}
 h1 {
     background-color: #ffffe8;
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin: 0px;
     padding: 8px;
 }
 dt {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 li {
-    margin-left: 2rem;
+    margin-left: 3rem;
 }
 
 #certification-frame {
@@ -43,19 +40,18 @@ li {
     margin-top: 35vh;
 }
 #password {
-    display: block;
-    font-size: 1.2rem;
+    font-size: 3rem;
     border: none;
     outline: none;
     padding: 0.7em;
-    width: 80vw;
+    width: 10em;
     border-radius: 20px;
-    margin: 1rem auto;
+    margin: auto;
 }
 #password-submit {
-    font-size: 1.6rem;
+    font-size: 4rem;
     padding: 0.2em 2em;
-    margin-top: 3rem;
+    margin-top: 9rem;
     box-shadow: 3px 3px 3px black;
 }
 
@@ -67,13 +63,13 @@ li {
 
 #control-wrapper {
     display: none;
-    padding: 1rem 2vw;
+    padding: 10% 5%;
 }
 #user-info li {
     display: flex;
 }
 #user-info {
-    margin: 1rem 2vw;
+    margin: 2rem 10%;
 }
 .user-info-val {
     display: block;
@@ -86,14 +82,14 @@ li {
 
 #control-button-container {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
 .control-button {
-    margin: 1em auto;
-    width: 60vw;
-    font-size: 1rem;
-    padding: 0.7em;
-    border-radius: 10px;
+    margin: 3rem auto;
+    width: 70%;
+    height: 10rem;
+    font-size: 4rem;
+    border-radius: 1rem;
 }
 #risefall-button {
     background-color: #83e68d;
@@ -103,17 +99,16 @@ li {
     background-color: #c94f4f;
     color: #e0e0e0;
 }
-/* -------------- Menu Bar ------------ */
 #menubar {
     text-align: center;
     background-color: #ff7a7a;
     border-radius: 10rem;
     color: white;
-    padding: 0.5rem;
-    margin: 0 1rem;
+    padding: 2rem;
+    margin: 0 2rem;
     position: fixed;
     z-index: 100;
-    bottom: 0.6rem;
+    bottom: 3rem;
     left: 0;
     right: 0;
 }
@@ -121,39 +116,38 @@ li {
     text-align: center;
 }
 .menu-icon {
-    font-size: 2rem;
+    font-size: 7rem;
 }
 .menu-label {
     margin: 0px;
-    font-size: 0.7rem;
+    font-size: 2.5rem;
     font-weight: bold;
 }
 #menu-scan {
     display: none;
 }
 
-
-/* --------------- Rise & Fall Pop-up ------------------ */
 #risefall-popup {
     display: none;
+    --height: 50rem;
     --width: 80vw;
     border-radius: 20px;
     box-shadow: 5px 5px 4px #32543e;
     position: fixed;
-    top: calc(50vh - calc(var(--width) / 2));
+    top: calc(50vh - calc(var(--height) / 2));
     left: calc(50vw - calc(var(--width) / 2));
     z-index: 101;
-    height: var(--width);
+    height: var(--height);
     width: var(--width);
     background-color: #e6fcee;
     text-align: center;
 }
 #risefall-input {
     margin-top: 18%;
-    font-size: 1.4rem;
+    font-size: 4rem;
     text-align: right;
-    padding: 0.3em;
-    width: 70%;
+    padding: 0.5em;
+    width: 8em;
     border-radius: 3px;
     outline: none;
     border: none;
@@ -164,10 +158,10 @@ li {
 }
 #risefall-control {
     display: flex;
-    margin: 2rem 12% 0 12%;
+    margin: 5rem 12% 0 12%;
 }
 .risefall-buttons {
-    font-size: 2rem;
+    font-size: 8rem;
     margin: auto;
     padding: 6px;
     border-radius: 10px;
@@ -184,8 +178,9 @@ li {
     bottom: 0;
     left: 0;
     right: 0;
-    font-size: 2rem;
-    padding: 0.1rem;
+    font-size: 7rem;
+    padding: 0.5rem;
+    margin-top: 5rem;
     text-align: center;
     background-color: #97d1ac;
     border-radius: 10px;
