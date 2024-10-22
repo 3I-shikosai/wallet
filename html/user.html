@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>PoyPoy | 3I</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta content="#f73667" name="theme-color" />
+
+        <link rel="stylesheet" href="../css/main.css" type="text/css" />
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+        />
+    </head>
+
+    <!-- ------------ Load Scripts --------------->
+    <script src="../js/user.js" type="module" defer></script>
+    <body>
+        <!-- ------------ Main UI --------------------->
+        <div id="main">
+            <!-- ------------ QR code & User ID ----------------->
+            <div id="qrcode-frame">
+                <div id="qrcode-wrapper">
+                    <canvas id="qrcode"></canvas>
+                </div>
+                <div id="logo-and-id">
+                    <div id="logo-frame">
+                        <span id="logo" class="material-symbols-outlined">
+                            psychology_alt
+                        </span>
+                        <span id="logo-text">3I-Pay</span>
+                    </div>
+                    <div id="user-id"></div>
+                </div>
+            </div>
+
+            <!-- ------------ Balance ------------------>
+            <div id="balance-frame">
+                <div id="balance-header">
+                    <span id="balance-icon" class="material-symbols-outlined">
+                        savings
+                    </span>
+                    <div id="blanace-title">
+                        <div id="blanace-title-en">Balance</div>
+                        <div id="balance-title-jp">残高</div>
+                    </div>
+                </div>
+
+                <div id="balance"></div>
+            </div>
+        </div>
+
+        <!-- ------------ Bottom Menu Bar ------------->
+        <div id="menubar">
+            <div id="menu-refresh" class="menu-box">
+                <span class="material-symbols-outlined menu-icon"
+                    >autorenew</span
+                >
+                <p class="menu-label">Refresh</p>
+            </div>
+        </div>
+    </body>
+</html>

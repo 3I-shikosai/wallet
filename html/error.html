@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Error</title>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+    </head>
+    <body>
+        <h1>やばいエラー</h1>
+        <p>ごめんなさい、何かが悪い</p>
+        <p>このページを閉じてもう一度やり直してください</p>
+        <br />
+        <p>detail: <span id="detail"></span></p>
+        <script>
+            const url = new URL(window.location.href);
+            const detail = url.searchParams.get("detail");
+            if (detail) {
+                document.getElementById("detail").innerText = detail;
+            }
+        </script>
+    </body>
+    <style>
+        html {
+            font-family: monospace, sans-serif;
+            padding: 6%;
+        }
+    </style>
+</html>

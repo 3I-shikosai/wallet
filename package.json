@@ -1,6 +1,20 @@
 {
-  "dependencies": {
-    "jsqr": "^1.4.0",
-    "prettier": "^3.3.3"
-  }
+    "name": "wallet",
+    "version": "1.0.0",
+    "description": "wallet app for Shikosai",
+    "main": "index.html",
+    "author": "st22182@gm.ibaraki-ct.ac.jp",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^1.7.7",
+        "esbuild": "^0.24.0",
+        "qrcode": "^1.5.4"
+    },
+    "scripts": {
+        "dev": "onchange \"src/js/*.js\" -- yarn build",
+        "build": "esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify && esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify"
+    },
+    "devDependencies": {
+        "onchange": "^7.1.0"
+    }
 }
