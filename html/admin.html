@@ -5,15 +5,13 @@
         <title>チップ管理</title>
         <meta content="width=device-width,initial-scale=1" name="viewport" />
         <meta content="#f73667" name="theme-color" />
+        <link rel="stylesheet" href="../css/admin.css" type="text/css" />
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
         />
-
-        <link rel="stylesheet" href="./main.css" type="text/css" />
     </head>
-    <script src="../node_modules/jsqr/dist/jsQR.js" defer></script>
-    <script type="module" src="../js/app.js" defer></script>
+    <script type="module" src="../js/admin.js" defer></script>
     <body>
         <div id="login-view">
             <form id="password-form">
@@ -28,11 +26,13 @@
         <div id="admin-view">
             <h1>3Iオンラインチップ管理ページ</h1>
 
+            <!-- QRコードスキャン画面 -->
             <div id="scan-view">
                 <div id="qr-msg">カメラへのアクセスを許可してください</div>
                 <canvas id="qr-canvas"></canvas>
             </div>
 
+            <!-- ユーザー情報管理画面 -->
             <div id="control-view">
                 <dl id="user-info">
                     <dt>User Informaition</dt>
@@ -46,6 +46,7 @@
                     </li>
                 </dl>
 
+                <!-- チップ増減ボタン -->
                 <div id="control-button-container">
                     <input
                         class="control-button"
@@ -57,38 +58,43 @@
                     <input
                         class="control-button"
                         type="button"
-                        value="RESET"
+                        value="DELETE"
                         id="reset-button"
                     />
                 </div>
             </div>
 
-            <!-- Rise & Fall's Pop-Up -->
+            <!-- チップ増減ポップアップ -->
             <div id="balance-control-popup">
-                <input
-                    id="balance-control-input"
-                    type="text"
-                    inputmode="numeric"
-                    pattern="\d*"
-                    value="0"
-                    autofocus
-                    placeholder="ペリカ"
-                />
-                <div id="balance-control-control">
-                    <div
-                        id="balance-control-plus"
-                        class="material-symbols-outlined balance-control-buttons"
-                    >
-                        add
+                <form id="balance-control-form">
+                    <input
+                        id="balance-control-input"
+                        type="text"
+                        inputmode="numeric"
+                        pattern="-?[0-9]*"
+                        value="0"
+                        autofocus
+                        placeholder="ペリカ"
+                    />
+                    <div id="balance-control-control">
+                        <div
+                            id="balance-control-plus"
+                            class="material-symbols-outlined balance-control-buttons"
+                        >
+                            add
+                        </div>
+                        <div
+                            id="balance-control-minus"
+                            class="material-symbols-outlined balance-control-buttons"
+                        >
+                            remove
+                        </div>
                     </div>
-                    <div
-                        id="balance-control-minus"
-                        class="material-symbols-outlined balance-control-buttons"
-                    >
-                        remove
-                    </div>
-                </div>
-                <div id="balance-control-ok">OK</div>
+                    <!--
+                    <div id="balance-control-ok">OK</div>
+                    -->
+                    <input type="submit" value="OK" id="balance-control-ok" />
+                </form>
             </div>
 
             <div id="menubar">

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/js/common.js"],
+  "sourcesContent": ["const API_URL = \"https://shikosai.mtaisei.com\";\n\nconst POLLING_INTERVAL = 10000;\n\nconst BALANCE_CONTROL_STEP = 10;\n\nexport { API_URL, POLLING_INTERVAL, BALANCE_CONTROL_STEP };\n"],
+  "mappings": "MAAA,IAAMA,EAAU,+BAEVC,EAAmB,IAEnBC,EAAuB",
+  "names": ["API_URL", "POLLING_INTERVAL", "BALANCE_CONTROL_STEP"]
+}

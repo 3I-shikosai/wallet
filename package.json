@@ -6,13 +6,17 @@
     "author": "st22182@gm.ibaraki-ct.ac.jp",
     "license": "MIT",
     "dependencies": {
+        "@popperjs/core": "^2.11.8",
         "axios": "^1.7.7",
+        "bootstrap": "^5.3.3",
         "esbuild": "^0.24.0",
+        "jsqr": "^1.4.0",
         "qrcode": "^1.5.4"
     },
     "scripts": {
-        "dev": "onchange \"src/js/*.js\" -- yarn build",
-        "build": "esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify && esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify"
+        "dev": "onchange \"src/js/*.js\" -- yarn build2",
+        "build": "esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify && esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify",
+        "build2": "esbuild ./src/js/*.js --bundle --outdir=./js --minify --sourcemap"
     },
     "devDependencies": {
         "onchange": "^7.1.0"
