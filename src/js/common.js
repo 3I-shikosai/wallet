@@ -1,6 +1,6 @@
 const API_URL = "https://shikosai.mtaisei.com";
 
-const POLLING_INTERVAL = 10000;
+const POLLING_INTERVAL = 5000;
 
 const BALANCE_CONTROL_STEP = 10;
 

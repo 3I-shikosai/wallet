@@ -7,23 +7,65 @@
     <script type="module" src="../js/admin-create.js" defer></script>
     <script type="text/javascript" src="../js/load_bootstrap.js"></script>
     <body class="border border-warning p-3" style="height: 100vh">
-        <h1 class="text-center">下のQRコードをスキャンしてください</h1>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col-6 m-3 text-center border border-primary-subtle">
-                <canvas
-                    width="800"
-                    height="800"
-                    id="qr-canvas"
-                    style="width: 50vw; height: 50vw"
-                ></canvas>
-            </div>
-            <div class="col"></div>
+        <style>
+            #login-view {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #feb272;
+                z-index: 200;
+                text-align: center;
+            }
+            #password-frame {
+                margin-top: 35vh;
+            }
+            #password {
+                display: block;
+                font-size: 1.2rem;
+                border: none;
+                outline: none;
+                padding: 0.7em;
+                width: 80vw;
+                border-radius: 20px;
+                margin: 1rem auto;
+            }
+            #password-submit {
+                font-size: 1.6rem;
+                padding: 0.2em 2em;
+                margin-top: 3rem;
+                box-shadow: 3px 3px 3px black;
+            }
+        </style>
+        <!----------------- パスワード入力フォーム ----------------->
+        <div id="login-view">
+            <form id="password-form">
+                <div id="password-frame">
+                    <label for="password">PASSWORD:&nbsp;</label>
+                    <input id="password" name="password" type="password" />
+                </div>
+                <input id="password-submit" type="submit" value="OK" />
+            </form>
         </div>
-        <div class="text-center">
-            <button type="button" id="refresh" class="btn btn-primary btn-lg">
+
+        <!----------------- QRコード生成 ----------------->
+        <h1 class="text-center m-5">QRコードをスキャンしてください</h1>
+        <div
+            class="p-5 mx-auto text-center border border-primary-subtle"
+            style="width: fit-content"
+        >
+            <canvas width="400" height="400" id="qr-canvas"></canvas>
+        </div>
+        <div class="text-center m-4">
+            <button
+                type="button"
+                id="refresh"
+                class="mt-5 px-5 btn btn-primary btn-lg"
+            >
                 更新
             </button>
+            <div class="mt-3 text-center text-secondary">Space or Enter</div>
         </div>
     </body>
 </html>
