@@ -68,6 +68,7 @@ class User {
             this.user_id = data;
             document.getElementById("user-id").innerText = data;
             this.fetchBalance().then((balance) => {
+                this.balance = balance;
                 document.getElementById("balance").innerText = balance;
             });
             switch_mode();

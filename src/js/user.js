@@ -45,7 +45,7 @@ class User {
         );
 
         // set balance
-        this.sync();
+        this.sync(true);
 
         // set event listener
         document
@@ -60,7 +60,18 @@ class User {
         }, POLLING_INTERVAL);
     }
 
-    sync() {
+    sync(login = false) {
+        if (login) {
+            axios
+                .post(`${API_URL}/api/user/login/${self.__user_id}`)
+                .then((response) => {
+                    console.log("logged in");
+                })
+                .catch((error) => {
+                    console.error(error.response.data.detail);
+                    window.location.href = `./error.html?detail=${error.response.data.detail.message}`;
+                });
+        }
         axios
             .get(`${API_URL}/api/user/sync/${self.__user_id}`)
             .then((response) => {

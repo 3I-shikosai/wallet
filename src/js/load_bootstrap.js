@@ -1,2 +1,6 @@
 import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import * as css from "bootstrap/dist/css/bootstrap.min.css";
+
+const bootstrap_style = document.createElement("style");
+bootstrap_style.textContent = css.default;
+document.head.appendChild(bootstrap_style);
