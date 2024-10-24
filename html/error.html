@@ -5,24 +5,97 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
     </head>
-    <body>
-        <h1>やばいエラー</h1>
-        <p>ごめんなさい、何かが悪い</p>
-        <p>このページを閉じてもう一度やり直してください</p>
-        <br />
-        <p>detail: <span id="detail"></span></p>
-        <script>
+    <script type="text/javascript" src="../js/load_bootstrap.js"></script>
+    <body class="fs-5">
+        <!------------              一般的なエラー画面              ------------>
+        <div id="error-all" class="error-section">
+            <h1>やばいエラー</h1>
+            <p>ごめんなさい、何かが悪いみたい</p>
+            <p>このページを閉じてもう一度やり直してください</p>
+            <br />
+            <p>detail: <span id="detail"></span></p>
+        </div>
+
+        <!------------              受付のQRコード更新ミス              ------------>
+        <div id="error-5" class="error-section">
+            <h1>ユーザーIDが使用中です</h1>
+
+            <!--------- 受付QRコードの更新ミス --------->
+            <h5 class="mt-5 fs-5">
+                受付でQRコードをスキャンした時にこのエラーが出た場合、受付の人にこの画面を見せてください。
+            </h5>
+
+            <div class="mt-3 alert alert-warning">
+                <p class="text-red-800">係員へ</p>
+                <p>受付のQRコードが更新されていない可能性があります。</p>
+                <p>
+                    受付の<span class="text-decoration-underline"
+                        >QRコード更新ボタンを押し</span
+                    >、お客様にもう一度QRコードのスキャンをお願いしてください。
+                </p>
+            </div>
+
+            <br /><br />
+
+            <!--------- ユーザーがリロードした場合 --------->
+            <h5 class="mt-5">
+                もしあなたがページ再読込みしたのであれば、下のボタンを押してください。
+            </h5>
+            <button type="button" id="back" class="btn btn-danger px-3">
+                もとのページに戻る
+            </button>
+        </div>
+
+        <!------------              ユーザーIDがないとき              ------------>
+        <div id="error-2" class="error-section">
+            <h1 class="mb-5">ユーザーIDが見つかりませんでした</h1>
+            <div class="alert alert-success">
+                <p>
+                    ３I教室を退出されますと、ユーザーIDは消去され、使用できなくなります。
+                </p>
+                <p>このタブを閉じてください。</p>
+            </div>
+            <div class="mt-4 fs-4 bd-orange-500">
+                またのご来店をお待ちしております!!
+            </div>
+        </div>
+
+        <script defer>
             const url = new URL(window.location.href);
             const detail = url.searchParams.get("detail");
+            const error_code = url.searchParams.get("error_code");
             if (detail) {
                 document.getElementById("detail").innerText = detail;
             }
+
+            switch (Number(error_code)) {
+                case 2:
+                    document.getElementById("error-all").style.display = "none";
+                    document.getElementById("error-2").style.display = "block";
+                    break;
+                case 5:
+                    document.getElementById("error-all").style.display = "none";
+                    document.getElementById("error-5").style.display = "block";
+                    break;
+                default:
+                    document.getElementById("error-all").style.display =
+                        "block";
+                    break;
+            }
+
+            document.getElementById("back").addEventListener("click", () => {
+                sessionStorage.setItem("login_skip", "true");
+                window.history.back();
+            });
         </script>
     </body>
     <style>
         html {
             font-family: monospace, sans-serif;
             padding: 6%;
+        }
+        .error-section {
+            display: none;
         }
     </style>
 </html>

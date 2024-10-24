@@ -65,11 +65,25 @@ class User {
             axios
                 .get(`${API_URL}/api/user/login/${self.__user_id}`)
                 .then((response) => {
-                    console.log("logged in");
+                    if (response.data) console.log("logged in");
                 })
                 .catch((error) => {
                     console.error(error.response.data.detail);
-                    window.location.href = `./error.html?detail=${error.response.data.detail.message + " @sync(login=true)"}`;
+                    const error_message = error.response.data.detail.message;
+                    const error_code = error.response.data.detail.error_code;
+
+                    // IDが使用中の場合はリロードしたのかもしれないので、確認
+                    if (error.response.data.detail.error_code === 5) {
+                        const login_skip = sessionStorage.getItem("login_skip");
+                        if (login_skip == "true") {
+                            console.error("login skip");
+                            sessionStorage.clear();
+                        } else {
+                            window.location.href = `./error.html?detail=${error_message}&error_code=${error_code}`;
+                        }
+                    } else {
+                        window.location.href = `./error.html?detail=${error_message}&error_code=${error_code}`;
+                    }
                 });
         }
         axios
@@ -82,7 +96,7 @@ class User {
             })
             .catch((error) => {
                 console.error(error.response.data.detail);
-                window.location.href = `./error.html?detail=${error.response.data.detail.message + " @sync(login=false)"}`;
+                window.location.href = `./error.html?detail=${error.response.data.detail.message + " @sync(login=false)"}&error_code=${error.response.detail.error_code}`;
                 return false;
             });
     }

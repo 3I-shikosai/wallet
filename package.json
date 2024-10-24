@@ -14,9 +14,9 @@
         "qrcode": "^1.5.4"
     },
     "scripts": {
-        "build2": "esbuild ./src/js/*.js --bundle --outdir=./js --minify --sourcemap --loader:.css=text",
-        "dev": "onchange \"src/js/*.js\" -- yarn build2",
-        "build": "esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify && esbuild ./src/js/user.js --bundle --outfile=./js/user.js --minify"
+        "build_dev": "esbuild ./src/js/*.js --bundle --outdir=./js --minify --sourcemap --loader:.css=text",
+        "build": "esbuild ./src/js/*.js --bundle --outdir=./js --minify --loader:.css=text",
+        "dev": "onchange \"src/js/*.js\" -- yarn build_dev"
     },
     "devDependencies": {
         "onchange": "^7.1.0"
