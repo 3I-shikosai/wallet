@@ -6,10 +6,19 @@
     </head>
     <script type="module" src="../js/admin-create.js" defer></script>
     <script type="text/javascript" src="../js/load_bootstrap.js"></script>
-    <body>
-        <h1>下のQRコードをスキャンしてください</h1>
-        <div>
-            <canvas id="qr-canvas" width="300" height="300"></canvas>
+    <body class="border border-warning p-3" style="height: 100vh">
+        <h1 class="text-center">下のQRコードをスキャンしてください</h1>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6 m-3 text-center border border-primary-subtle">
+                <canvas
+                    width="800"
+                    height="800"
+                    id="qr-canvas"
+                    style="width: 50vw; height: 50vw"
+                ></canvas>
+            </div>
+            <div class="col"></div>
         </div>
         <div class="text-center">
             <button type="button" id="refresh" class="btn btn-primary btn-lg">

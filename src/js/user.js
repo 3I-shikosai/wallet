@@ -63,13 +63,13 @@ class User {
     sync(login = false) {
         if (login) {
             axios
-                .post(`${API_URL}/api/user/login/${self.__user_id}`)
+                .get(`${API_URL}/api/user/login/${self.__user_id}`)
                 .then((response) => {
                     console.log("logged in");
                 })
                 .catch((error) => {
                     console.error(error.response.data.detail);
-                    window.location.href = `./error.html?detail=${error.response.data.detail.message}`;
+                    window.location.href = `./error.html?detail=${error.response.data.detail.message + " @sync(login=true)"}`;
                 });
         }
         axios
@@ -82,7 +82,7 @@ class User {
             })
             .catch((error) => {
                 console.error(error.response.data.detail);
-                window.location.href = `./error.html?detail=${error.response.data.detail.message}`;
+                window.location.href = `./error.html?detail=${error.response.data.detail.message + " @sync(login=false)"}`;
                 return false;
             });
     }
