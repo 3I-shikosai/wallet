@@ -6,3 +6,4 @@
 
 [ユーザー用](https://3i-shikosai.github.io/wallet/html/user.html)
 
+※Only for mobile
